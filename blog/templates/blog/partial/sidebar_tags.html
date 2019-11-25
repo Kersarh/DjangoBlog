@@ -1,0 +1,5 @@
+<ul>
+    {% for tag in sidebar_tags %}
+    <a style="background-color: {{ tag.color }};" class="badge badge-secondary" href="/tag/{{ tag.slug }}">{{ tag }}</a>
+    {% endfor %}
+</ul>

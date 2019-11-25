@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Welcome {{ new_user.first_name }}!</h4>
+    Your account has been successfully created. Now you can <a href="{% url "login" %}">log in</a>
+</div>
+
+{% endblock %}

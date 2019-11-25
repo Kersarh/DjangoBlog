@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block head %}
+<title>{{ object.title }}</title>
+<meta name="description" content="{{ object.description }}" />
+<meta name="keywords" content="{{ object.keywords }}" />
+{% endblock head %}
+
+{% block content %}
+{% autoescape off %}
+<!-- Content Column -->
+<div class="mb-4 my-4">
+    <div class="card card-body">
+        {{ object.content|linebreaksbr }}
+    </div>
+</div>
+{% endautoescape %}
+{% endblock content %}

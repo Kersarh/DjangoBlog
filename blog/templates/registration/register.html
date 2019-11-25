@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<br>
+<div align="center">
+    <div class="card col-10">
+        <div class="card-body">
+            <h4 class="card-title">Регистрация</h4>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+                {% for field in form %}
+
+
+                {{ field.label_tag }}<br>
+                {{ field }}<br>
+                {% if field.errors %}
+                <br>
+                <div class="alert alert-primary" role="alert">{{ field.errors }}</div>
+                {% endif %}
+
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-primary btn-block">Создать аккаунт</button>
+            </form>
+            <br>
+            <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

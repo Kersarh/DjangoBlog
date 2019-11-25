@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load static %}
+{% load sidebar %}
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% block head %}
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>My Site!</title>
+  {% endblock head %}
+  <link rel="icon" href="{% static 'blog/favicon.ico' %}" type="image/x-icon">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'blog/css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'blog/css/blog.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark badge-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">My_Site</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/page/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/page/contact">Contact</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="/logout/">{{ user.get_username }}</a>
+          </li> -->
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <div class="nav-link">{{ user.get_username }}</div>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}?next={{request.path}}">Выйти</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Войти</a></li>
+          {% endif %}
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% block content %} {% endblock content %}
+      </div>
+      <!-- Sidebar Column -->
+      <div class="col-md-4">
+        <!-- Search -->
+        <form action="/search/" method="GET">
+          <div class="card my-4">
+            <div class="card-body">
+              <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="submit">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- Tags -->
+        <div class="card my-4">
+          <h5 class="card-header">Tags</h5>
+          <div class="card-body">
+            <div class="row">
+              <ul class="list-unstyled mb-0">
+                {% sidebar_tags %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Null -->
+        <div class="card my-4">
+          <h5 class="card-header">Title</h5>
+          <div class="card-body">
+            Content!
+          </div>
+        </div>
+        <!-- /Null -->
+      </div>
+    </div>
+  </div>
+  <!-- /Content -->
+  <!-- Footer -->
+  <footer class="footer py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; My_site.</p>
+    </div>
+  </footer>
+  <!-- /Footer -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'blog/js/jquery/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'blog/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

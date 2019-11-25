@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- Если ввод был ошибочным -->
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<!-- Если авторизован -->
+<br><br><br>
+{% if user.is_authenticated %}
+<p>Вы уже авторизованы или доступ на эту страницу закрыт.</p>
+{% else %}
+<div align="center">
+    <div class="card col-6">
+        <div class="card-body">
+            <h4 class="card-title">Авторизация</h4>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+
+                {{ form|crispy }}
+                <br>
+                <button type="submit" class="btn btn-success btn-block">Log in</button>
+            </form>
+            <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+            <p>
+                <a href="/accounts/register/">
+                    <button type="button" class="btn btn-primary btn-block">Регистрация</button>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+
+
+
+{% endblock %}

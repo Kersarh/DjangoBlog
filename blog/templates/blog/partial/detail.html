@@ -1,0 +1,71 @@
+{% extends 'blog/base.html' %}
+
+{% load martortags %}
+
+{% block head %}
+<title>{{ object.title }}</title>
+<meta name="description" content="{{ object.description }}" />
+<meta name="keywords" content="{{ object.keywords }}" />
+{% endblock head %}
+
+{% block content %}
+{% autoescape off %}
+<!-- Content Column -->
+
+<!-- Title -->
+<h1 class="mt-4">{{ object.title }}</h1>
+<!-- Author & Data-->
+<p class="lead">
+  <div style="float:left;">{{ object.created}}, Просмотров: {{ object.post_views }}</div>
+  <div style="float:right;">by <a href="#">{{ object.autor }}</a></div>
+</p>
+<br>
+<!-- Tags-->
+{% for tag in object.tags.all %}
+<a style="background-color: {{ tag.color }};" class="badge badge-secondary" href="/tag/{{ tag.id }}">{{ tag }}</a>
+{% endfor %}
+<hr>
+<!-- Preview Image -->
+{% if object.img %}
+<img class="img-thumbnail" src="{{ p.img.url }}" alt="image">
+{% endif %}
+<!-- Content -->
+{{ object.content|safe_markdown }}
+<hr>
+
+
+<!-- Comments -->
+<h3 class="card-title">Comments</h3>
+<hr>
+{% for comment in comments %}
+<div class="card">
+  <div class="card-body">
+    <h6 class="card-title text-muted"><b>{{ comment.name }}</b></h6>
+    <h6 class="card-subtitle mb-2 text-muted">{{ comment.created }}</h6>
+    <p class="card-text">{{ comment.text|linebreaks }}</p>
+  </div>
+</div>
+{% empty %}
+<p>There are no comments yet.</p>
+{% endfor %}
+
+{% if request.user.is_authenticated %}
+<!-- Comments Form -->
+<div class="card my-4">
+  <h5 class="card-header">Leave a Comment:</h5>
+  <div class="card-body">
+    <form action="" method="post">
+      <div class="form-group">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+
+
+
+{% endautoescape %}
+{% endblock content %}

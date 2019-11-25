@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+
+{% load martortags %}
+
+{% block content %}
+{% autoescape off %}
+
+{% for post in object_list %}
+<div class="card mb-4 my-4">
+  {% if post.img %}
+  <img class="img-thumbnail img-blog" src="{{ post.img.url }}" alt="image">
+  {% endif %}
+
+  <div class="card-body">
+    <h2 class="card-title">
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </h2>
+
+    {% for tag in post.tags.all %}
+    <a style="background-color: {{ tag.color }};" class="badge badge-secondary" href="/tag/{{ tag.slug }}">{{ tag }}</a>
+    {% endfor %}
+    <hr>
+    <div class="size">
+      <p class="card-text">{{ post.content|safe_markdown }}</p>
+    </div>
+    <div align="right">
+      <a href="{{ post.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Подробнее... &rarr;</a>
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    <div style="float:left;">Posted on {{ post.created }}</div>
+    <div style="float:right;">by <a href="#">{{ post.autor }}</a></div>
+  </div>
+</div>
+{% endfor %}
+<!-- Pagination -->
+{% include "blog/partial/pagination.html" %}
+<!-- /Pagination -->
+{% endautoescape %}
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block head %}
+<title>Not Found!</title>
+<meta name="description" content="{{ object.description }}" />
+<meta name="keywords" content="{{ object.keywords }}" />
+{% endblock head %}
+
+{% block content %}
+{% autoescape off %}
+
+{% for data in object_list %}
+<div class="card mb-4 my-4" align="center">
+    {{ data }}
+    <br>
+    <a href="/">На главную</a>
+
+</div>
+{% endfor %}
+
+{% endautoescape %}
+{% endblock content %}
