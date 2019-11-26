@@ -27,6 +27,12 @@ Post модель для блога
 7. Отредактируйте  `settyngs.py` 
 
 ```python
+import os
+
+# Загрузка переменных окружения
+from dotenv import load_dotenv
+load_dotenv(verbose=True)
+
 INSTALLED_APPS = [
 	...
 	'django.contrib.sites',
