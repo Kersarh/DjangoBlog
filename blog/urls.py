@@ -21,6 +21,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', views.RegisterFormView.as_view()),
     path('accounts/register_done/', views.regdone),
+    path('robots.txt', views.robots),
     path("sitemap.xml",
          sitemap, {'sitemaps': SITEMAPS},
          name='django.contrib.sitemaps.views.sitemap'),

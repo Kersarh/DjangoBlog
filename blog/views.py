@@ -134,3 +134,7 @@ class RegisterFormView(FormView):
 
 def regdone(request):
 	return render(request, "registration/registerdone.html")
+
+# robots.txt
+def robots(request):
+	return render(request, "robots.txt", content_type="text/plain")
